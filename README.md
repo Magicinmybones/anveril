@@ -1,6 +1,6 @@
-# Anveril
+# Novaryn
 
-Static Anveril landing page prepared for Cloudflare Pages.
+Static Novaryn landing page prepared for Cloudflare Pages.
 
 ## Local development
 

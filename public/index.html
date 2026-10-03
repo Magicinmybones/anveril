@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Anveril — Intelligence Without Limits™</title>
+<title>Novaryn — Acceleration Through Vision™</title>
 <script>
 /* Establish the entrance state before first paint, while leaving the page
    fully visible when JavaScript is unavailable or reduced motion is set. */
 (function(){
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
     document.documentElement.classList.add("motion-pending");
-    window.__anverilMotionFallback=window.setTimeout(function(){
+    window.__novarynMotionFallback=window.setTimeout(function(){
       document.documentElement.classList.remove("motion-pending");
     },3000);
   }
@@ -18,8 +18,8 @@
 </script>
 <style>
 @font-face{
-  font-family:"Anveril Sans";
-  src:url(assets/anveril-sans.ttf) format("truetype");
+  font-family:"Novaryn Sans";
+  src:url(assets/novaryn-sans.ttf) format("truetype");
   font-weight:300 900;
   font-display:block;
 }
@@ -47,7 +47,7 @@
 html,body{ margin:0; height:100%; }
 html{ background:var(--bg); -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 body{
-  font-family:"Anveril Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family:"Novaryn Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:var(--ink);
   background:var(--bg);
   -webkit-font-smoothing:antialiased;
@@ -173,7 +173,7 @@ h1 .tm{ font-size:0.83em; position:relative; top:calc(-6.3 * var(--u)); margin-l
 }
 .lead .l{ display:block; white-space:nowrap; }
 
-/* Photo */
+/* Hero visual */
 .media{
   position:relative;
   flex:1 1 auto; min-height:0;
@@ -181,7 +181,7 @@ h1 .tm{ font-size:0.83em; position:relative; top:calc(-6.3 * var(--u)); margin-l
   border-radius:calc(5 * var(--u)) calc(5 * var(--u)) 0 0;
   overflow:hidden;
   background:
-    radial-gradient(120% 90% at 70% 10%,#e9f1f4 0%,#b9cfd8 45%,#6d8d9b 100%);
+    radial-gradient(120% 90% at 52% 45%,#334a5f 0%,#142333 48%,#05090f 100%);
   isolation:isolate;
 }
 .media img{
@@ -226,7 +226,7 @@ h1 .tm{ font-size:0.83em; position:relative; top:calc(-6.3 * var(--u)); margin-l
 }
 
 /* ───────── One-time entrance choreography ─────────
-   The photograph is intentionally excluded: it is the static visual stage. */
+   The hero image is intentionally excluded: it is the static visual stage. */
 html.motion-pending .divider{
   opacity:0;
   transform:scaleY(0);
@@ -370,15 +370,14 @@ html.motion-pending .news{
   <header class="top">
     <div class="divider" aria-hidden="true"></div>
 
-    <a class="logo" href="#" aria-label="Anveril home">
-      <svg class="mark" viewBox="20 24.5 39 26" aria-hidden="true">
-        <path fill="currentColor" d="M20.4 50.5 45.2 25 51 25 51 40.6 41.1 50.5Z"/>
-        <path fill="currentColor" d="M49.9 42.4H58.2V50.5H49.9Z"/>
+    <a class="logo" href="#" aria-label="Novaryn home">
+      <svg class="mark" viewBox="0 0 39 26" aria-hidden="true">
+        <path fill="currentColor" d="M0 26V0h6.9l18.2 17.2V0H32v26h-6.6L6.9 8.7V26Z"/>
+        <path fill="currentColor" d="M34 20h5v6h-5Z"/>
       </svg>
-      <span class="word">Anveril</span>
+      <span class="word">Novaryn</span>
       <svg class="reg" viewBox="0 0 10 10" aria-hidden="true">
-        <circle cx="5" cy="5" r="4.4" fill="currentColor" fill-opacity=".62" stroke="currentColor" stroke-width="1.2"/>
-        <path fill="none" stroke="#f7f8f3" stroke-opacity=".55" stroke-width="1.1" d="M3.9 7.2V2.9H5.3Q6.5 2.9 6.5 4Q6.5 5.1 5.3 5.1H3.9M5.3 5.1 6.4 7.2"/>
+        <path fill="currentColor" d="M5 0 6.25 3.75 10 5 6.25 6.25 5 10 3.75 6.25 0 5 3.75 3.75Z"/>
       </svg>
     </a>
 
@@ -397,28 +396,28 @@ html.motion-pending .news{
       </svg>
     </button>
 
-    <a class="pill cta" href="#">Get Started</a>
+    <a class="pill cta" href="#">See Further</a>
 
-    <h1><span class="h1a">Intelligence</span><br><span class="h1b">Without Limits<span class="tm">™</span></span></h1>
+    <h1><span class="h1a">Acceleration</span><br><span class="h1b">Through Vision<span class="tm">™</span></span></h1>
 
     <p class="lead">
-      <span class="l">We partner with enterprises to redesign workflows</span>
-      <span class="l">deploy agents and scale intelligence across critical</span>
-      <span class="l">operations.</span>
+      <span class="l">We imagine with pathfinders to discover frontiers</span>
+      <span class="l">unfold worlds and shape technologies beyond physical</span>
+      <span class="l">boundaries.</span>
     </p>
   </header>
 
   <main class="media">
-    <img id="hero" alt="Scientist working at laboratory equipment"
-      src="assets/hero-lab-1600.jpg"
-      srcset="assets/hero-lab-800.jpg 800w,
-              assets/hero-lab-1600.jpg 1600w,
-              assets/hero-lab-2600.jpg 2600w"
+    <img id="hero" alt="Photonic lens focusing neural light into a violet beam"
+      src="assets/hero-novaryn-1200.webp"
+      srcset="assets/hero-novaryn-800.webp 800w,
+              assets/hero-novaryn-1200.webp 1200w,
+              assets/hero-novaryn-1672.webp 1672w"
       sizes="100vw" decoding="async" fetchpriority="high">
 
     <div class="news" role="region" aria-label="Announcement">
-      <p>Anveril launches its manifesto for the next era of AI transformation.</p>
-      <a class="pill" href="#">Read More</a>
+      <p>Novaryn presents the blueprint for the next era of AI infrastructure.</p>
+      <a class="pill" href="#">View Next</a>
     </div>
 </main>
 </div>
@@ -438,7 +437,7 @@ html.motion-pending .news{
   }
 
   function complete(){
-    window.clearTimeout(window.__anverilMotionFallback);
+    window.clearTimeout(window.__novarynMotionFallback);
     root.classList.remove("motion-pending");
     animations.forEach(function(animation){ animation.cancel(); });
   }
@@ -480,7 +479,7 @@ html.motion-pending .news{
       {opacity:1,transform:"none"}
     ],{duration:520,delay:730,easing:settle});
 
-    /* The announcement closes the composition; the photograph never moves. */
+    /* The announcement closes the composition; the hero image never moves. */
     play(".news",[
       {opacity:0,translate:"0 10px",scale:".96 1"},
       {opacity:1,translate:"none",scale:"none"}
