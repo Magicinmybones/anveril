@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anveril — Intelligence Without Limits™</title>
+<script>
+/* Establish the entrance state before first paint, while leaving the page
+   fully visible when JavaScript is unavailable or reduced motion is set. */
+(function(){
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    document.documentElement.classList.add("motion-pending");
+    window.__anverilMotionFallback=window.setTimeout(function(){
+      document.documentElement.classList.remove("motion-pending");
+    },3000);
+  }
+})();
+</script>
+<style>
+@font-face{
+  font-family:"Anveril Sans";
+  src:url(assets/anveril-sans.ttf) format("truetype");
+  font-weight:300 900;
+  font-display:block;
+}
+
+/* ───────── Design tokens (sampled from the 1280×800 reference) ───────── */
+:root{
+  --bg:#f7f8f3;          /* page background            */
+  --ink:#25251d;         /* all text, logo, dark pills */
+  --rule:#1c1c1c;        /* paragraph lead rule        */
+  --divider:#f3f4ef;     /* centre hairline            */
+  --divider-soft:#f5f6f1;
+  --banner:189,191,177;  /* #bdbfb1 news bar           */
+  --pill-text:#edefe8;   /* "Get Started" label        */
+  --pill-text-2:#d2d3c7; /* "Read More" label          */
+
+  /* 1 design-pixel. Width-driven, but capped by height so the hero always
+     fits; the photo then absorbs any leftover height (no blank bands). */
+  --u:calc(100vw / 1280);
+  --vh:1vh;
+}
+@supports (height:1svh){ :root{ --vh:1svh; } }
+:root{ --u:min(100vw / 1280, (var(--vh) * 100) / 800); }
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; height:100%; }
+html{ background:var(--bg); -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  font-family:"Anveril Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  overflow:hidden;
+}
+a{ color:inherit; text-decoration:none; }
+:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+/* ───────── Shell: hero band + photo that fills the rest ───────── */
+.page{
+  height:100vh; height:100dvh;
+  display:flex; flex-direction:column;
+  padding:env(safe-area-inset-top,0px) 0 0;
+}
+.top{
+  position:relative;
+  flex:none;
+  height:calc(345 * var(--u));
+}
+.divider{
+  position:absolute; top:0; bottom:0;
+  left:calc(50% - 2 * var(--u));
+  width:calc(4 * var(--u));
+  background:linear-gradient(90deg,var(--divider-soft) 0 25%,var(--divider) 25% 75%,var(--divider-soft) 75% 100%);
+  pointer-events:none;
+}
+
+/* Logo */
+.logo{
+  position:absolute;
+  left:calc(20 * var(--u)); top:calc(21 * var(--u));
+  display:flex; align-items:flex-start;
+  height:calc(34.5 * var(--u));
+}
+.logo .mark{
+  width:calc(39 * var(--u)); height:calc(26 * var(--u));
+  margin-top:calc(4 * var(--u));
+  flex:none; display:block;
+}
+.logo .word{
+  font-size:calc(34.5 * var(--u));
+  font-weight:350;
+  line-height:1;
+  letter-spacing:-0.003em;
+  margin-left:calc(0.8 * var(--u));
+  position:relative; top:calc(-0.5 * var(--u));
+}
+.logo .reg{
+  width:calc(6.4 * var(--u)); height:calc(6.4 * var(--u));
+  margin-left:calc(0.9 * var(--u));
+  margin-top:calc(23.8 * var(--u));
+  flex:none; display:block;
+}
+
+/* Menu */
+.menu{
+  position:absolute;
+  right:calc(20 * var(--u)); top:calc(20 * var(--u));
+  height:calc(35 * var(--u));
+  display:flex; align-items:center;
+  gap:calc(16.5 * var(--u));
+  background:none; border:0; padding:0; color:inherit; font:inherit; cursor:pointer;
+}
+.menu span{
+  font-size:max(12px, calc(21.5 * var(--u)));
+  font-weight:350;
+  letter-spacing:-0.01em;
+  line-height:1;
+  margin-top:calc(1.5 * var(--u));
+}
+.menu svg{ width:calc(36 * var(--u)); height:calc(36 * var(--u)); display:block; margin-right:calc(0.6 * var(--u)); }
+
+/* Dark pill buttons */
+.pill{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--ink);
+  border-radius:999px;
+  white-space:nowrap;
+}
+.cta{
+  position:absolute;
+  right:calc(20 * var(--u)); top:calc(144.5 * var(--u));
+  height:calc(41 * var(--u));
+  padding:calc(4 * var(--u)) calc(19.5 * var(--u)) 0 calc(20.8 * var(--u));
+  color:var(--pill-text);
+  font-size:max(12px, calc(16.5 * var(--u)));
+  font-weight:350;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+
+/* Headline */
+h1{
+  position:absolute; margin:0;
+  left:calc(20 * var(--u)); top:calc(207.6 * var(--u));
+  font-size:calc(62.14 * var(--u));
+  font-weight:450;
+  letter-spacing:-0.015em;
+  line-height:calc(60 * var(--u));
+  white-space:nowrap;
+}
+h1 .h1a{ display:inline-block; margin-left:calc(-1.6 * var(--u)); letter-spacing:-0.0105em; }
+h1 .h1b{ display:inline-block; word-spacing:-0.06em; letter-spacing:-0.011em; }
+h1 .tm{ font-size:0.83em; position:relative; top:calc(-6.3 * var(--u)); margin-left:calc(2.1 * var(--u)); letter-spacing:-0.01em; }
+
+/* Lead paragraph with rule */
+.lead{
+  position:absolute; margin:0;
+  right:calc(20 * var(--u)); top:calc(228 * var(--u));
+  width:calc(520 * var(--u));
+  padding-left:calc(21 * var(--u));
+  font-size:max(13px, calc(20.5 * var(--u)));
+  font-weight:400;
+  letter-spacing:0.004em;
+  line-height:1.3171;
+}
+.lead::before{
+  content:""; position:absolute; left:0; top:calc(-3 * var(--u)); bottom:calc(3 * var(--u));
+  width:calc(2.4 * var(--u)); min-width:1.5px;
+  background:var(--rule);
+}
+.lead .l{ display:block; white-space:nowrap; }
+
+/* Photo */
+.media{
+  position:relative;
+  flex:1 1 auto; min-height:0;
+  margin:0 calc(20 * var(--u));
+  border-radius:calc(5 * var(--u)) calc(5 * var(--u)) 0 0;
+  overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 70% 10%,#e9f1f4 0%,#b9cfd8 45%,#6d8d9b 100%);
+  isolation:isolate;
+}
+.media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:50% 45%;
+  display:block;
+}
+
+/* News bar (opaque frosted strip, measured #bdbfb1 over both dark & light) */
+.news{
+  position:absolute; z-index:2;
+  left:50%; bottom:calc(30 * var(--u));
+  transform:translateX(-50%);
+  width:calc(800 * var(--u));
+  min-height:calc(56 * var(--u));
+  display:flex; align-items:center; justify-content:space-between;
+  gap:calc(16 * var(--u));
+  padding:calc(8 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) calc(20 * var(--u));
+  background:rgba(var(--banner),0.985);
+  -webkit-backdrop-filter:blur(24px) saturate(1.1);
+  backdrop-filter:blur(24px) saturate(1.1);
+  border-radius:calc(2 * var(--u));
+}
+.news p{
+  margin:0;
+  font-size:max(12px, calc(17.5 * var(--u)));
+  font-weight:350;
+  letter-spacing:-0.02em;
+  line-height:1.25;
+  padding-top:calc(1 * var(--u));
+}
+.news .pill{
+  flex:none;
+  width:calc(118 * var(--u)); height:calc(40 * var(--u));
+  padding-top:calc(4 * var(--u)); padding-left:calc(1 * var(--u));
+  color:var(--pill-text-2);
+  font-size:max(12px, calc(16.75 * var(--u)));
+  font-weight:350;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+
+/* ───────── One-time entrance choreography ─────────
+   The photograph is intentionally excluded: it is the static visual stage. */
+html.motion-pending .divider{
+  opacity:0;
+  transform:scaleY(0);
+  transform-origin:50% 0;
+}
+html.motion-pending .logo,
+html.motion-pending .menu,
+html.motion-pending .cta,
+html.motion-pending .lead,
+html.motion-pending .news{
+  opacity:0;
+}
+html.motion-pending .logo,
+html.motion-pending .menu{ transform:translateY(-8px); }
+html.motion-pending .cta,
+html.motion-pending .lead{ transform:translateY(10px); }
+html.motion-pending h1 .h1a,
+html.motion-pending h1 .h1b{
+  opacity:0;
+  transform:translateY(0.72em);
+  clip-path:inset(0 0 100% 0);
+}
+html.motion-pending .news{
+  translate:0 10px;
+  scale:0.96 1;
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   RESPONSIVE ARCHITECTURE
+   The desktop composition above scales uniformly by --u, so it only fails
+   when --u gets too small or the band/photo balance inverts:
+     • width  < 960px → lead copy < 15px, pills & news text at 12px floor,
+                        side margins < 15px
+     • height < 600px → same shrink, driven by height
+     • portrait       → hero band ≈ 20% of the screen, the photo outweighs
+                        the headline
+   Below those points the hero is re-architected; desktop rules untouched.
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* ── Tablet: same two-column split around the centre hairline, but the
+      headline and lead are sized by their columns instead of by --u ── */
+@media (max-width:959.98px), (max-height:599.98px), (orientation:portrait){
+  :root{ --u:clamp(0.85px, 100vw / 1280, 1px); }   /* component scale: logo, menu, pills, news bar */
+  body{ overflow:visible; }
+  .page{
+    --gx:clamp(20px, 2.6vw, 28px);          /* outer margin (desktop: 20u)        */
+    --gc:clamp(40px, 6.5vw, 72px);          /* column gap; hairline sits centred  */
+    --air-top:clamp(28px, 7vh, 96px);  --air-top:clamp(28px, 7svh, 96px);
+    --air:clamp(16px, 2.6vh, 28px);    --air:clamp(16px, 2.6svh, 28px);
+    --air-end:clamp(32px, 5vh, 56px);  --air-end:clamp(32px, 5svh, 56px);
+    height:auto; min-height:100vh; min-height:100dvh;
+  }
+  .top{
+    height:auto;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    grid-template-areas:
+      "logo menu"
+      ".    cta"
+      "h1   lead";
+    grid-template-rows:auto 1fr auto;
+    /* keep the desktop band/photo balance (≈ 43 : 57) as far as height allows */
+    min-height:36vh; min-height:36svh;
+    column-gap:var(--gc);
+    align-items:start;
+    padding:calc(20 * var(--u)) var(--gx) var(--air-end);
+    isolation:isolate;
+  }
+  .divider{ z-index:-1; }
+  .logo,.menu,.cta,h1,.lead{ position:relative; top:auto; right:auto; left:auto; }
+  .logo{ grid-area:logo; align-self:center; }
+  .menu{ grid-area:menu; justify-self:end; align-self:center; }
+  .cta{ grid-area:cta; justify-self:end; align-self:end; margin-top:var(--air-top); }
+  /* touch targets: enlarge the hit area, not the drawn component */
+  .menu::after,.pill::after{ content:""; position:absolute; inset:-6px; }
+  .news .pill{ position:relative; }
+
+  h1{
+    grid-area:h1;
+    margin-top:var(--air);
+    /* "Without Limits™" is 7.08em wide → always fits its column on 2 lines */
+    font-size:clamp(34px, calc((50vw - var(--gx) - var(--gc) / 2) / 7.3), 96px);
+    line-height:0.9655;
+  }
+  h1 .h1a{ margin-left:-0.026em; }
+  h1 .tm{ top:-0.122em; margin-left:0.04em; }
+
+  .lead{
+    grid-area:lead;
+    width:auto; max-width:30em;
+    margin-top:calc(var(--air) + 0.25em);
+    padding-left:calc(21 * var(--u));
+    font-size:clamp(16px, calc(0.55vw + 12px), 19px);
+    line-height:1.42;
+  }
+  .lead::before{ top:-0.15em; bottom:0.2em; }
+  .lead .l{ display:inline; white-space:normal; }
+
+  .media{
+    margin:0 var(--gx);
+    flex:1 0 auto;
+    min-height:max(300px, 50vh); min-height:max(300px, 50svh);
+  }
+  .news{ width:min(calc(800 * var(--u)), calc(100% - 2 * var(--gx))); }
+}
+
+/* ── Mobile: the split fails once the headline column would drop under
+      ~44px type and the lead under ~36 characters a line (≈ 680px).
+      Headline and lead take the full measure; CTA keeps its right anchor. ── */
+@media (max-width:679.98px){
+  .page{ --gx:20px; --air-top:clamp(36px, 8vh, 80px); --air-top:clamp(36px, 8svh, 80px); --air:clamp(20px, 3vh, 28px); --air:clamp(20px, 3svh, 28px); --air-end:28px; }
+  .top{
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:
+      "logo menu"
+      "h1   h1"
+      "lead lead"
+      ".    cta";
+    grid-template-rows:auto 1fr auto auto;
+    min-height:44vh; min-height:44svh;
+    column-gap:16px;
+  }
+  h1{ align-self:end; }
+  .cta{ align-self:start; }
+  h1{ margin-top:var(--air-top); font-size:clamp(32px, calc((100vw - 2 * var(--gx)) / 7.3), 54px); }
+  .lead{ margin-top:var(--air); max-width:32em; font-size:16.5px; }
+  .cta{ margin-top:var(--air); }
+  .media{ min-height:max(300px, 46vh); min-height:max(300px, 46svh); }
+  .news{
+    left:12px; right:12px; bottom:12px;
+    transform:none; width:auto;
+    padding:10px 8px 10px 14px;
+    gap:12px;
+  }
+}
+@media (prefers-reduced-motion:reduce){ *{ transition:none!important; animation:none!important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div class="divider" aria-hidden="true"></div>
+
+    <a class="logo" href="#" aria-label="Anveril home">
+      <svg class="mark" viewBox="20 24.5 39 26" aria-hidden="true">
+        <path fill="currentColor" d="M20.4 50.5 45.2 25 51 25 51 40.6 41.1 50.5Z"/>
+        <path fill="currentColor" d="M49.9 42.4H58.2V50.5H49.9Z"/>
+      </svg>
+      <span class="word">Anveril</span>
+      <svg class="reg" viewBox="0 0 10 10" aria-hidden="true">
+        <circle cx="5" cy="5" r="4.4" fill="currentColor" fill-opacity=".62" stroke="currentColor" stroke-width="1.2"/>
+        <path fill="none" stroke="#f7f8f3" stroke-opacity=".55" stroke-width="1.1" d="M3.9 7.2V2.9H5.3Q6.5 2.9 6.5 4Q6.5 5.1 5.3 5.1H3.9M5.3 5.1 6.4 7.2"/>
+      </svg>
+    </a>
+
+    <button class="menu" type="button" aria-label="Open menu">
+      <span>Menu</span>
+      <svg viewBox="-18 -18 36 36" aria-hidden="true" fill="currentColor">
+        <circle cx="0" cy="-15" r="2.3"/>
+        <circle cx="10.61" cy="-10.61" r="2.3"/>
+        <circle cx="15" cy="0" r="2.3"/>
+        <circle cx="10.61" cy="10.61" r="2.3"/>
+        <circle cx="0" cy="15" r="2.3"/>
+        <circle cx="-10.61" cy="10.61" r="2.3"/>
+        <circle cx="-15" cy="0" r="2.3"/>
+        <circle cx="-10.61" cy="-10.61" r="2.3"/>
+        <circle cx="0" cy="0" r="2.45"/>
+      </svg>
+    </button>
+
+    <a class="pill cta" href="#">Get Started</a>
+
+    <h1><span class="h1a">Intelligence</span><br><span class="h1b">Without Limits<span class="tm">™</span></span></h1>
+
+    <p class="lead">
+      <span class="l">We partner with enterprises to redesign workflows</span>
+      <span class="l">deploy agents and scale intelligence across critical</span>
+      <span class="l">operations.</span>
+    </p>
+  </header>
+
+  <main class="media">
+    <img id="hero" alt="Scientist working at laboratory equipment"
+      src="assets/hero-lab-1600.jpg"
+      srcset="assets/hero-lab-800.jpg 800w,
+              assets/hero-lab-1600.jpg 1600w,
+              assets/hero-lab-2600.jpg 2600w"
+      sizes="100vw" decoding="async" fetchpriority="high">
+
+    <div class="news" role="region" aria-label="Announcement">
+      <p>Anveril launches its manifesto for the next era of AI transformation.</p>
+      <a class="pill" href="#">Read More</a>
+    </div>
+</main>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  if(!root.classList.contains("motion-pending")) return;
+
+  var animations=[];
+  var settle="cubic-bezier(.16,1,.3,1)";
+  var reveal="cubic-bezier(.22,1,.36,1)";
+
+  function play(selector,keyframes,timing){
+    var element=document.querySelector(selector);
+    if(!element) return;
+    animations.push(element.animate(keyframes,Object.assign({fill:"both"},timing)));
+  }
+
+  function complete(){
+    window.clearTimeout(window.__anverilMotionFallback);
+    root.classList.remove("motion-pending");
+    animations.forEach(function(animation){ animation.cancel(); });
+  }
+
+  try{
+    /* Structure first: the centre rule quietly establishes the split grid. */
+    play(".divider",[
+      {opacity:0,transform:"scaleY(0)",transformOrigin:"50% 0"},
+      {opacity:1,transform:"scaleY(1)",transformOrigin:"50% 0"}
+    ],{duration:820,delay:20,easing:"cubic-bezier(.65,0,.35,1)"});
+
+    /* Orientation remains understated so the headline keeps priority. */
+    play(".logo",[
+      {opacity:0,transform:"translateY(-8px)"},
+      {opacity:1,transform:"none"}
+    ],{duration:560,delay:90,easing:settle});
+    play(".menu",[
+      {opacity:0,transform:"translateY(-8px)"},
+      {opacity:1,transform:"none"}
+    ],{duration:520,delay:170,easing:settle});
+
+    /* The two lines read as one thought, with a short editorial overlap. */
+    play("h1 .h1a",[
+      {opacity:0,transform:"translateY(.72em)",clipPath:"inset(0 0 100% 0)"},
+      {opacity:1,transform:"none",clipPath:"inset(0 0 0% 0)"}
+    ],{duration:790,delay:250,easing:reveal});
+    play("h1 .h1b",[
+      {opacity:0,transform:"translateY(.72em)",clipPath:"inset(0 0 100% 0)"},
+      {opacity:1,transform:"none",clipPath:"inset(0 0 0% 0)"}
+    ],{duration:840,delay:360,easing:reveal});
+
+    /* Supporting copy and action settle only after the message is legible. */
+    play(".lead",[
+      {opacity:0,transform:"translateY(10px)"},
+      {opacity:1,transform:"none"}
+    ],{duration:620,delay:570,easing:settle});
+    play(".cta",[
+      {opacity:0,transform:"translateY(10px) scale(.985)"},
+      {opacity:1,transform:"none"}
+    ],{duration:520,delay:730,easing:settle});
+
+    /* The announcement closes the composition; the photograph never moves. */
+    play(".news",[
+      {opacity:0,translate:"0 10px",scale:".96 1"},
+      {opacity:1,translate:"none",scale:"none"}
+    ],{duration:720,delay:920,easing:reveal});
+
+    Promise.all(animations.map(function(animation){ return animation.finished; }))
+      .then(complete,complete);
+  }catch(error){
+    complete();
+  }
+})();
+</script>
+</body>
+</html>
