@@ -15,6 +15,7 @@ coverage/
 .cache/
 .tmp/
 tmp/
+design-concepts/
 
 # Logs
 *.log
